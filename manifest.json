@@ -1,0 +1,17 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "1.21.130 AttackInterval Auto-Fix",
+    "description": "Automatically patches missing 'attack_interval' fields for vanilla entities to eliminate log spam. Designed specifically for game versions 1.21.130 through 1.21.132.",
+    "uuid": "9ed87a80-3e5f-49d9-b76a-f8522a90273c",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 130]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "3bcfeab7-46e2-48ff-a33a-f3f33054f6df",
+      "version": [1, 0, 0]
+    }
+  ]
+}
