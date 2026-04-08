@@ -1,19 +1,22 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.21.130",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:wither",
-      "is_spawnable": false,
+      "spawn_category": "monster",
+      "is_spawnable": true,
       "is_summonable": true,
       "is_experimental": false
     },
     "components": {
+      "minecraft:is_hidden_when_invisible": {},
       "minecraft:experience_reward": {
         "on_death": "50"
       },
       "minecraft:breathable": {
         "total_supply": 15,
-        "suffocate_time": 0
+        "suffocate_time": 0,
+        "breathes_water": true
       },
       "minecraft:boss": {
         "should_darken_sky": true,
@@ -28,7 +31,7 @@
               "value": "undead"
             }
           },
-          "deals_damage": false
+          "deals_damage": "no"
         }
       },
       "minecraft:health": {
@@ -39,7 +42,7 @@
         "width": 1,
         "height": 3
       },
-      "minecraft:fire_immune": true,
+      "minecraft:fire_immune": {},
       "minecraft:loot": {
         "table": "loot_tables/entities/wither_boss.json"
       },
@@ -134,7 +137,8 @@
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
-      }
+      },
+      "minecraft:conditional_bandwidth_optimization": {}
     },
     "events": {
       "minecraft:entity_spawned": {}

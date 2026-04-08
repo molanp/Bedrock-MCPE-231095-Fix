@@ -1,11 +1,10 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.21.130",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:zombie_villager_v2",
       "is_spawnable": true,
-      "is_summonable": false,
-      "is_experimental": false
+      "is_summonable": false
     },
     "component_groups": {
       "baby": {
@@ -30,12 +29,13 @@
         "minecraft:rideable": {
           "seat_count": 1,
           "family_types": [
-            "zombie"
+            "baby_zombie",
+            "baby_husk"
           ],
           "seats": {
             "position": [
               0.0,
-              1.1,
+              1.175,
               -0.35
             ]
           }
@@ -52,6 +52,9 @@
           "priority": 1,
           "within_radius": 16
         }
+      },
+      "can_break_doors": {
+        "minecraft:annotation.break_door": {}
       },
       "from_abandoned_village": {
         "minecraft:navigation.walk": {
@@ -71,9 +74,12 @@
           "into": "minecraft:villager_v2",
           "begin_transform_sound": "remedy",
           "transformation_sound": "unfect",
+          "drop_equipment": true,
           "keep_level": true,
           "delay": {
             "value": 100,
+            "range_min": 80,
+            "range_max": 200,
             "block_assist_chance": 0.01,
             "block_radius": 4,
             "block_chance": 0.3,
@@ -87,11 +93,11 @@
           "add_effects": [
             {
               "effect": "strength",
-              "duration": 100
+              "duration": 300
             },
             {
               "effect": "heal",
-              "duration": 100
+              "duration": 300
             }
           ],
           "remove_effects": "weakness"
@@ -102,21 +108,6 @@
         "minecraft:type_family": {
           "family": [
             "unskilled",
-            "zombie",
-            "zombie_villager",
-            "undead",
-            "monster",
-            "mob"
-          ]
-        },
-        "minecraft:variant": {
-          "value": 0
-        }
-      },
-      "nitwit": {
-        "minecraft:type_family": {
-          "family": [
-            "nitwit",
             "zombie",
             "zombie_villager",
             "undead",
@@ -140,7 +131,7 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 1
         }
       },
       "fisherman": {
@@ -155,7 +146,7 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 2
         }
       },
       "shepherd": {
@@ -170,7 +161,7 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 3
         }
       },
       "fletcher": {
@@ -185,7 +176,7 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 4
         }
       },
       "librarian": {
@@ -200,7 +191,7 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 5
         }
       },
       "cartographer": {
@@ -215,7 +206,7 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 6
         }
       },
       "cleric": {
@@ -230,7 +221,7 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 7
         }
       },
       "armorer": {
@@ -245,7 +236,7 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 8
         }
       },
       "weaponsmith": {
@@ -260,7 +251,7 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 9
         }
       },
       "toolsmith": {
@@ -275,7 +266,7 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 10
         }
       },
       "butcher": {
@@ -290,7 +281,7 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 11
         }
       },
       "leatherworker": {
@@ -305,13 +296,13 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 12
         }
       },
       "mason": {
         "minecraft:type_family": {
           "family": [
-            "mason",
+            "stone_mason",
             "zombie_villager",
             "zombie",
             "undead",
@@ -320,7 +311,22 @@
           ]
         },
         "minecraft:variant": {
-          "value": 0
+          "value": 13
+        }
+      },
+      "nitwit": {
+        "minecraft:type_family": {
+          "family": [
+            "nitwit",
+            "zombie",
+            "zombie_villager",
+            "undead",
+            "monster",
+            "mob"
+          ]
+        },
+        "minecraft:variant": {
+          "value": 14
         }
       },
       "desert_villager": {
@@ -385,10 +391,11 @@
       }
     },
     "components": {
+      "minecraft:is_hidden_when_invisible": {},
       "minecraft:navigation.walk": {
         "is_amphibious": true,
         "can_pass_doors": true,
-        "can_open_doors": true,
+        "can_break_doors": true,
         "avoid_sun": false
       },
       "minecraft:movement.basic": {},
@@ -402,6 +409,14 @@
       "minecraft:loot": {
         "table": "loot_tables/entities/zombie.json"
       },
+      "minecraft:equip_item": {
+        "excluded_items": [
+          {
+            "item": "minecraft:banner:15"
+          }
+        ]
+      },
+      "minecraft:conditional_bandwidth_optimization": {},
       "minecraft:collision_box": {
         "width": 0.6,
         "height": 1.9
@@ -429,6 +444,287 @@
         "damage": 3
       },
       "minecraft:nameable": {},
+      "minecraft:shareables": {
+        "singular_pickup": true,
+        "items": [
+          {
+            "item": "minecraft:netherite_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:diamond_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:golden_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:copper_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:stone_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
+          },
+          {
+            "item": "minecraft:wooden_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 6
+          },
+          {
+            "item": "minecraft:netherite_spear",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:diamond_spear",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_spear",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:golden_spear",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:copper_spear",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:stone_spear",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
+          },
+          {
+            "item": "minecraft:wooden_spear",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 6
+          },
+          {
+            "item": "minecraft:netherite_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:diamond_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:chainmail_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:golden_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:copper_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
+          },
+          {
+            "item": "minecraft:leather_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 6
+          },
+          {
+            "item": "minecraft:turtle_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 7
+          },
+          {
+            "item": "minecraft:skull:0",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 8
+          },
+          {
+            "item": "minecraft:skull:1",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 8
+          },
+          {
+            "item": "minecraft:carved_pumpkin",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 8
+          },
+          {
+            "item": "minecraft:netherite_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:diamond_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:chainmail_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:golden_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:copper_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
+          },
+          {
+            "item": "minecraft:leather_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 6
+          },
+          {
+            "item": "minecraft:netherite_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:diamond_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:chainmail_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:golden_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:copper_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
+          },
+          {
+            "item": "minecraft:leather_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 6
+          },
+          {
+            "item": "minecraft:netherite_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:diamond_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:chainmail_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:golden_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:copper_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
+          },
+          {
+            "item": "minecraft:leather_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 6
+          }
+        ]
+      },
       "minecraft:interact": {
         "interactions": {
           "on_interact": {
@@ -454,44 +750,69 @@
           "interact_text": "action.interact.cure"
         }
       },
-      "minecraft:behavior.break_door": {
-        "priority": 1
+      "minecraft:despawn": {
+        "despawn_from_distance": {}
       },
-      "minecraft:behavior.melee_attack": {
+      "minecraft:behavior.use_kinetic_weapon": {
         "priority": 6,
-        "speed_multiplier": 1,
-        "track_target": false
+        "track_target": true,
+        "approach_distance": 10.0,
+        "reposition_distance": {
+          "min": 6.0,
+          "max": 7.0
+        },
+        "cooldown_distance": {
+          "min": 9.0,
+          "max": 11.0
+        },
+        "weapon_reach_multiplier": 0.5,
+        "weapon_min_speed_multiplier": 0.2,
+        "hijack_mount_navigation": true
+      },
+      "minecraft:behavior.melee_box_attack": {
+        "can_spread_on_fire": true,
+        "priority": 7
+      },
+      "minecraft:behavior.equip_item": {
+        "priority": 3
       },
       "minecraft:behavior.stomp_turtle_egg": {
         "priority": 4,
         "speed_multiplier": 1,
-        "search_range": 24,
-        "search_height": 3,
+        "search_range": 10,
+        "search_height": 2,
         "goal_radius": 1.14,
-        "search_count": 4,
         "interval": 20
       },
-      "minecraft:behavior.move_towards_restriction": {
-        "priority": 7,
-        "speed_multiplier": 1
+      "minecraft:behavior.pickup_items": {
+        "priority": 8,
+        "max_dist": 3,
+        "goal_radius": 2,
+        "speed_multiplier": 1.0,
+        "pickup_based_on_chance": true,
+        "can_pickup_any_item": true,
+        "excluded_items": [
+          "minecraft:glow_ink_sac"
+        ]
       },
       "minecraft:behavior.random_stroll": {
-        "priority": 8,
+        "priority": 9,
         "speed_multiplier": 1
       },
       "minecraft:behavior.look_at_player": {
-        "priority": 9,
+        "priority": 10,
         "look_distance": 6,
         "probability": 0.02
       },
       "minecraft:behavior.random_look_around": {
-        "priority": 9
+        "priority": 11
       },
       "minecraft:behavior.hurt_by_target": {
         "priority": 1
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
+        "must_see": true,
         "reselect_targets": true,
         "entity_types": [
           {
@@ -545,7 +866,6 @@
             "max_dist": 35
           }
         ],
-        "must_see": true,
         "attack_interval": {
           "range_min": 1.0,
           "range_max": 1.0
@@ -600,58 +920,6 @@
                   "component_groups": [
                     "baby",
                     "jockey"
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "randomize": [
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "villager_skin_0"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "villager_skin_1"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "villager_skin_2"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "villager_skin_3"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "villager_skin_4"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "villager_skin_5"
                   ]
                 }
               }
@@ -787,112 +1055,154 @@
             ]
           },
           {
-            "filters": {
-              "any_of": [
-                {
-                  "test": "has_biome_tag",
-                  "value": "desert"
-                },
-                {
-                  "test": "has_biome_tag",
-                  "value": "mesa"
-                }
-              ]
-            },
-            "add": {
-              "component_groups": [
-                "desert_villager"
-              ]
-            }
+            "trigger": "minecraft:add_biome_and_skin"
           },
           {
-            "filters": {
-              "test": "has_biome_tag",
-              "value": "jungle"
-            },
-            "add": {
-              "component_groups": [
-                "jungle_villager"
-              ]
-            }
-          },
-          {
-            "filters": {
-              "test": "has_biome_tag",
-              "value": "savanna"
-            },
-            "add": {
-              "component_groups": [
-                "savanna_villager"
-              ]
-            }
-          },
-          {
-            "filters": {
-              "any_of": [
-                {
-                  "all_of": [
-                    {
-                      "test": "has_biome_tag",
-                      "value": "cold"
-                    },
-                    {
-                      "test": "has_biome_tag",
-                      "operator": "!=",
-                      "value": "ocean"
-                    }
+            "randomize": [
+              {
+                "weight": 10,
+                "add": {
+                  "component_groups": [
+                    "can_break_doors"
                   ]
-                },
-                {
-                  "test": "has_biome_tag",
-                  "value": "frozen"
                 }
-              ]
+              },
+              {
+                "weight": 90
+              }
+            ]
+          }
+        ]
+      },
+      "minecraft:spawn_skilled_adult": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "has_component",
+              "operator": "!=",
+              "value": "minecraft:variant"
             },
             "add": {
               "component_groups": [
-                "snow_villager"
+                "adult"
               ]
             }
           },
           {
             "filters": {
-              "test": "has_biome_tag",
-              "value": "swamp"
+              "test": "has_component",
+              "operator": "!=",
+              "value": "minecraft:variant"
             },
-            "add": {
-              "component_groups": [
-                "swamp_villager"
-              ]
-            }
-          },
-          {
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    {
-                      "test": "has_biome_tag",
-                      "value": "taiga"
-                    },
-                    {
-                      "test": "has_biome_tag",
-                      "value": "extreme_hills"
-                    }
+            "randomize": [
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "farmer"
                   ]
-                },
-                {
-                  "test": "has_biome_tag",
-                  "operator": "!=",
-                  "value": "cold"
                 }
-              ]
-            },
-            "add": {
-              "component_groups": [
-                "taiga_villager"
-              ]
-            }
+              },
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "fisherman"
+                  ]
+                }
+              },
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "shepherd"
+                  ]
+                }
+              },
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "fletcher"
+                  ]
+                }
+              },
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "librarian"
+                  ]
+                }
+              },
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "cartographer"
+                  ]
+                }
+              },
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "cleric"
+                  ]
+                }
+              },
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "armorer"
+                  ]
+                }
+              },
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "weaponsmith"
+                  ]
+                }
+              },
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "toolsmith"
+                  ]
+                }
+              },
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "butcher"
+                  ]
+                }
+              },
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "leatherworker"
+                  ]
+                }
+              },
+              {
+                "weight": 1,
+                "add": {
+                  "component_groups": [
+                    "mason"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "trigger": "minecraft:add_biome_and_skin"
           }
         ]
       },
@@ -1102,7 +1412,7 @@
                 "filters": {
                   "test": "is_family",
                   "subject": "other",
-                  "value": "mason"
+                  "value": "stone_mason"
                 },
                 "add": {
                   "component_groups": [
@@ -1286,42 +1596,19 @@
       "from_village": {
         "sequence": [
           {
-            "filters": {
-              "test": "has_component",
-              "operator": "!=",
-              "value": "minecraft:variant"
-            },
-            "randomize": [
-              {
-                "weight": 9500,
-                "remove": {},
-                "add": {
-                  "component_groups": [
-                    "adult"
-                  ]
-                }
-              },
-              {
-                "weight": 425,
-                "remove": {},
-                "add": {
-                  "component_groups": [
-                    "baby"
-                  ]
-                }
-              },
-              {
-                "weight": 75,
-                "remove": {},
-                "add": {
-                  "component_groups": [
-                    "baby",
-                    "jockey"
-                  ]
-                }
-              }
-            ]
+            "trigger": "minecraft:entity_spawned"
           },
+          {
+            "add": {
+              "component_groups": [
+                "from_abandoned_village"
+              ]
+            }
+          }
+        ]
+      },
+      "minecraft:add_biome_and_skin": {
+        "sequence": [
           {
             "randomize": [
               {
@@ -1369,135 +1656,6 @@
                 "add": {
                   "component_groups": [
                     "villager_skin_5"
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "filters": {
-              "test": "has_component",
-              "operator": "!=",
-              "value": "minecraft:variant"
-            },
-            "randomize": [
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "unskilled"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "nitwit"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "farmer"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "fisherman"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "shepherd"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "fletcher"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "librarian"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "cartographer"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "cleric"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "armorer"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "weaponsmith"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "toolsmith"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "butcher"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "leatherworker"
-                  ]
-                }
-              },
-              {
-                "weight": 1,
-                "add": {
-                  "component_groups": [
-                    "mason"
                   ]
                 }
               }
@@ -1574,8 +1732,16 @@
           },
           {
             "filters": {
-              "test": "has_biome_tag",
-              "value": "swamp"
+              "any_of": [
+                {
+                  "test": "has_biome_tag",
+                  "value": "swamp"
+                },
+                {
+                  "test": "has_biome_tag",
+                  "value": "mangrove_swamp"
+                }
+              ]
             },
             "add": {
               "component_groups": [
@@ -1585,27 +1751,29 @@
           },
           {
             "filters": {
-              "any_of": [
+              "all_of": [
                 {
-                  "test": "has_biome_tag",
-                  "value": "taiga"
+                  "any_of": [
+                    {
+                      "test": "has_biome_tag",
+                      "value": "taiga"
+                    },
+                    {
+                      "test": "has_biome_tag",
+                      "value": "extreme_hills"
+                    }
+                  ]
                 },
                 {
                   "test": "has_biome_tag",
-                  "value": "extreme_hills"
+                  "operator": "!=",
+                  "value": "cold"
                 }
               ]
             },
             "add": {
               "component_groups": [
                 "taiga_villager"
-              ]
-            }
-          },
-          {
-            "add": {
-              "component_groups": [
-                "from_abandoned_village"
               ]
             }
           }
